@@ -64,7 +64,9 @@ function connectToEC(usr, pwd) {
             invalidText.classList.remove('no-display');
 
             console.log('The username or/and password is wrong');
-        } else if (content.code === 200) {
+
+            console.log(content.token);
+        } else if (content.code === 200 || content.token.length > 0) {
             console.log('Got the token');
 
             getAverages(content.token);
