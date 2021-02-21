@@ -110,6 +110,8 @@ function getAverages(token) {
             invalidText.innerHTML = 'unknow error';
             invalidText.classList.remove('no-display');
 
+            console.log(content);
+
             console.log('Unknow error');
         }
     })();
