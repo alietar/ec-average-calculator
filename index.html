@@ -1,0 +1,42 @@
+<html>
+    <head>
+		<title>Calculateur de moyenne pour ecole directe</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="style.css">
+		<link rel="icon" type="image/svg+xml" href="favicon.svg">
+	</head>
+	<body>
+		<div id="login-container">
+			<h2>Connexion</h2>
+			<form>
+				<div>
+					<input id="usr-input" type="text" name="" required="">
+					<label>Nom d'utilisateur</label>
+				</div>
+				<div>
+					<input id="pwd-input" type="password" name="" required="">
+					<label>Mot de passe</label>
+				</div>
+				<div id="bottom-div">
+					<button type="submit" id="connection-button">
+						Se connecter
+					</button>
+					<p id="invalid-text" class="no-display">Error text</p>
+					<div id="loader" class="no-display"></div>
+				</div>
+			</form>
+		</div>
+		<div id="averages-container" class="no-display">
+			<h2>Moyennes</h2>
+			<p id='total-average'>Moyenne generale: </p>
+			<hr>
+			<table id='subjects-averages-table'>
+				<tbody><tr>
+					<th>Matière</th>
+					<th>Moyenne (sur 20)</th>
+				</tr>
+			</tbody></table>
+		</div>
+		<script src="main.js"></script>
+    </body>
+</html>
