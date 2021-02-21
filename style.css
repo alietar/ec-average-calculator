@@ -50,7 +50,7 @@ table {
 
 body > div {
 	width: 400px;
-	// height:600px;
+	margin: 10px;
 	background: var(--white);
 	padding: 30px;
 	border-radius: 10px;
