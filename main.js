@@ -104,7 +104,7 @@ function getAverages(token) {
         } else if (content.code === 200) {
             console.log('Got the grades');
 
-            let averages = processAverages(content.data, 2);
+            let averages = processAverages(content.data, 3);
             console.log(averages)
 
             displayAveragesPage(averages);
