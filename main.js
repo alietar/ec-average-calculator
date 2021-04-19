@@ -1,5 +1,6 @@
 const authURL = 'https://api.ecoledirecte.com/v3/login.awp';
-const gradesURL = 'https://api.ecoledirecte.com/v3/eleves/5479/notes.awp?verbe=get&=';
+const gradesURLStart = 'https://api.ecoledirecte.com/v3/eleves/';
+const gradesURLEnd = '/notes.awp?verbe=get&=';
 
 const form = document.querySelector('form');
 form.addEventListener('submit', handleConnectionButton);
@@ -69,7 +70,7 @@ function connectToEC(usr, pwd) {
         } else if (content.code === 200 || content.token.length > 0) {
             console.log('Got the token');
 
-            getAverages(content.token);
+            getAverages(content.token, String(content.data.accounts[0].id));
 
             return;
         } else {
@@ -84,9 +85,9 @@ function connectToEC(usr, pwd) {
 }
 
 
-function getAverages(token) {
+function getAverages(token, id) {
     (async () => {
-        const rawResponse = await fetch(gradesURL, {
+          const rawResponse = await fetch(gradesURLStart + String(id) + gradesURLEnd, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
