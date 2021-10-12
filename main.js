@@ -105,7 +105,7 @@ function getAverages(token, id) {
         } else if (content.code === 200) {
             console.log('Got the grades');
 
-            let averages = processAverages(content.data, 0);
+            let averages = processAverages(content.data, 1);
             console.log(averages)
 
             displayAveragesPage(averages);
@@ -132,7 +132,7 @@ function roundDec(x) {
 
 
 function processAverages(data, periodName) {
-    let periodId = { 1: 0, 2: 2, 3: 3 }[periodName];
+    let periodId = { 1: 0, 2: 1, 3: 2 }[periodName];
     let period = data.periodes[periodId];
 
     let subjects = period.ensembleMatieres.disciplines
