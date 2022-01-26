@@ -40,8 +40,6 @@ function handleConnectionButton(event) {
 
     invalidText.classList.add('no-display');
     
-    console.log("Username: " + usrInput.value + " Password: " + pwdInput.value);
-
     connectToEC(usrInput.value, pwdInput.value);
 }
 
@@ -58,17 +56,13 @@ function connectToEC(usr, pwd) {
             body: 'data={\n"identifiant": "' + usr +'",\n"motdepasse": "'+ pwd +'"\n}'
         });
         const content = await rawResponse.json();
-        console.log('Getting the token...');
 
         if (content.code === 505) {
             invalidText.innerHTML = content.message;
             invalidText.classList.remove('no-display');
 
             console.log('The username or/and password is wrong');
-
-            console.log(content.token);
         } else if (content.code === 200 || content.token.length > 0) {
-            console.log('Got the token');
 
             getAverages(content.token, String(content.data.accounts[0].id));
 
@@ -95,7 +89,6 @@ function getAverages(token, id) {
             body: 'data={\n"token": "' + token +'",\n}'
         });
         const content = await rawResponse.json();
-        console.log('Getting the grades...');
 
         if (content.code === 520) {
             invalidText.innerHTML = content.message;
@@ -103,10 +96,8 @@ function getAverages(token, id) {
 
             console.log('The token is wrong');
         } else if (content.code === 200) {
-            console.log('Got the grades');
 
             let averages = processAverages(content.data, 2);
-            console.log(averages)
 
             displayAveragesPage(averages);
         } else {
@@ -127,7 +118,7 @@ function parseValue(str) {
 
 
 function roundDec(x) {
-    return Math.round(x * 10) / 10;
+    return Math.round((x + Number.EPSILON) * 100) / 100;
 }
 
 
@@ -140,7 +131,7 @@ function processAverages(data, periodName) {
             let grades = data.notes
                 .filter((grade) => grade.codePeriode === period.codePeriode && grade.codeMatiere === discipline.codeMatiere)
                 .map((grade) => ({
-                    coef: parseValue(grade.coef),
+                    coef: (parseValue(grade.coef) === 0 ? 1 : parseValue(grade.coef)),
                     value: roundDec(parseValue(grade.valeur) / parseValue(grade.noteSur) * 20)
                 }))
                 .filter((grade) => grade.value === grade.value);
@@ -149,7 +140,7 @@ function processAverages(data, periodName) {
 
             return {
                 average,
-                coef: discipline.coef,
+                coef: (discipline.coef === 0 ? 1 : discipline.coef),
                 grades,
                 title: discipline.discipline
             };
