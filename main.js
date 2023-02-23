@@ -97,7 +97,7 @@ function getAverages(token, id) {
             console.log('The token is wrong');
         } else if (content.code === 200) {
 
-            let averages = processAverages(content.data, 3);
+            let averages = processAverages(content.data, 2);
 
             displayAveragesPage(averages);
         } else {
